@@ -28,32 +28,13 @@ def generate_image(prompt: str):
         return None
 
 def generate_story(image_url: str, topic: str):
-    """Generate a story using Llama/Service Now model"""
+    """Generate a story using Llama model"""
     try:
         prompt = f"Look at this image: {image_url}. Write a short story about it related to the topic: {topic}."
-        # response = client.chat.completions.create(
-        #     model="meta-llama/Llama-Vision-Free",
-        #     messages=[{"role": "user", "content": prompt}]
-        # )
-
         response = client.chat.completions.create(
-            model="from together import Together
-
-client = Together()
-
-response = client.chat.completions.create(
-    model="meta-llama/Llama-Guard-3-11B-Vision-Turbo",
-    messages=[
-      {
-        "role": "user",
-        "content": "What are some fun things to do in New York?"
-      }
-    ]
-)
-print(response.choices[0].message.content)",
+            model="meta-llama/Llama-Guard-3-11B-Vision-Turbo",
             messages=[{"role": "user", "content": prompt}]
         )
-        
         return response.choices[0].message.content
     except Exception as e:
         st.error(f"Failed to generate story: {str(e)}")
