@@ -37,7 +37,20 @@ def generate_story(image_url: str, topic: str):
         # )
 
         response = client.chat.completions.create(
-            model="ServiceNow-AI/Apriel-1.5-15b-Thinker",
+            model="from together import Together
+
+client = Together()
+
+response = client.chat.completions.create(
+    model="meta-llama/Llama-Guard-3-11B-Vision-Turbo",
+    messages=[
+      {
+        "role": "user",
+        "content": "What are some fun things to do in New York?"
+      }
+    ]
+)
+print(response.choices[0].message.content)",
             messages=[{"role": "user", "content": prompt}]
         )
         
